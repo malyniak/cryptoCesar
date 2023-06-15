@@ -1,13 +1,8 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.*;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cipher {
     private Path sourcePath;
@@ -34,14 +29,15 @@ public class Cipher {
         return originalText;
     }
 
-    public ArrayList<String> cipheringText() {
+    public ArrayList<String> cipheringText(ArrayList<String> strings) {
         ArrayList<String> changedList = new ArrayList<>();
-        for (String s : originalText) {
+        for (String s : strings) {
             StringBuilder stringBuilder = new StringBuilder();
             char[] charsOfLine = s.toCharArray();
             for (int i = 0; i < charsOfLine.length; i++) {
                 if (SYMBOLS.contains(s.substring(i, i + 1))) {
-                    stringBuilder.append(s.substring(i, i + 1));
+                   int x= SYMBOLS.indexOf(s.substring(i, i+1));
+                    stringBuilder.append(SYMBOLS.substring(x+key.getValue(), x+ key.getValue()+1));
                 }
             }
             changedList.add(stringBuilder.toString());
