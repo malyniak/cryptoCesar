@@ -22,10 +22,6 @@ public class Cipher {
         return originalText;
     }
 
-    public void setOriginalText(ArrayList<String> originalText) {
-        this.originalText = originalText;
-    }
-
     private ArrayList<String> originalText;
 
 
@@ -57,7 +53,7 @@ public class Cipher {
                    if(x+key.getValue()>=SYMBOLS.length()) {
                        x=x-SYMBOLS.length();
                    }
-                    stringBuilder.append(SYMBOLS.substring(x+key.getValue(), x+ key.getValue()+1));
+                    stringBuilder.append(SYMBOLS, x+key.getValue(), x+ key.getValue()+1);
                 }
             }
             changedList.add(stringBuilder.toString());
@@ -77,7 +73,6 @@ public class Cipher {
                     bufferedWriter.write(line);
                 }
             } catch (IOException e) {
-                e.getMessage();
                 System.out.println("Введено неіснуючий шлях");
             }
 
