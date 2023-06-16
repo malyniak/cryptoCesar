@@ -10,6 +10,11 @@ import java.util.ArrayList;
 public class Cipher {
     private Path sourcePath;
     private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
+
+    public void setOutPath(Path outPath) {
+        this.outPath = outPath;
+    }
+
     private Path outPath;
     private Key key;
 
@@ -31,7 +36,7 @@ public class Cipher {
 
     public ArrayList<String> readTextFromFile() {
         ArrayList<String> originalText = new ArrayList<>();
-        try (BufferedReader bufferedReader = Files.newBufferedReader(sourcePath)) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(this.sourcePath)) {
             while (bufferedReader.ready()) {
                 originalText.add(bufferedReader.readLine());
             }
@@ -49,6 +54,9 @@ public class Cipher {
             for (int i = 0; i < charsOfLine.length; i++) {
                 if (SYMBOLS.contains(s.substring(i, i + 1))) {
                    int x= SYMBOLS.indexOf(s.substring(i, i+1));
+                   if(x+key.getValue()>=SYMBOLS.length()) {
+                       x=x-SYMBOLS.length();
+                   }
                     stringBuilder.append(SYMBOLS.substring(x+key.getValue(), x+ key.getValue()+1));
                 }
             }
@@ -63,6 +71,7 @@ public class Cipher {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
             try (BufferedWriter bufferedWriter = Files.newBufferedWriter(outPath, Charset.defaultCharset())) {
                 for (String line : list) {
                     bufferedWriter.write(line);
@@ -71,7 +80,7 @@ public class Cipher {
                 e.getMessage();
                 System.out.println("Введено неіснуючий шлях");
             }
-        }
+
 
     }
 
