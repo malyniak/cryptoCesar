@@ -12,6 +12,15 @@ public class Cipher {
     private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path outPath;
     private Key key;
+
+    public ArrayList<String> getOriginalText() {
+        return originalText;
+    }
+
+    public void setOriginalText(ArrayList<String> originalText) {
+        this.originalText = originalText;
+    }
+
     private ArrayList<String> originalText;
 
 
