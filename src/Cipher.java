@@ -48,5 +48,23 @@ public class Cipher {
         }
         return changedList;
     }
+    public void writeText (ArrayList<String> list) {
+        if(!Files.exists(outPath)) {
+            try {
+                Files.createFile(outPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try (BufferedWriter bufferedWriter = Files.newBufferedWriter(outPath, Charset.defaultCharset())) {
+                for (String line : list) {
+                    bufferedWriter.write(line);
+                }
+            } catch (IOException e) {
+                e.getMessage();
+                System.out.println("Введено неіснуючий шлях");
+            }
+        }
+
+    }
 
 }
