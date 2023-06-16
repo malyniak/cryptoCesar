@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
 
 public class Cipher {
     private Path sourcePath;
