@@ -16,7 +16,7 @@ public class Cipher {
     }
 
     private Path outPath;
-    private Key key;
+    private final Key key;
 
     public ArrayList<String> getOriginalText() {
         return originalText;
