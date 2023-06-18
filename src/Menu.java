@@ -2,11 +2,11 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Menu {
-    Scanner scanner=new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     //   Brutforce brutforce=new BrutForce();
     Path srcPath;
     Path outPath;
-    Cipher cipher;
+    CesarFactory cesarFactory;
     public static final String MENU_SELECT =
             """
                     Press 1 to encrypt/decrypt by key
@@ -16,41 +16,33 @@ public class Menu {
 
     boolean isExit = false;
 
-    public Cipher start() {
+    public CesarFactory start() {
 
         System.out.println(MENU_SELECT);
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());
-            switch (menuNumber) {
-                case 0:
-                    isExit = true;
+            cesarFactory = CesarFactory.createCesar(menuNumber);
+            if (cesarFactory != null)
+                isExit = true;
+        }
+        return cesarFactory;
+    }
 
-                    break;
-                case 1:
-                    cipher=new Cipher();
-                    isExit = true;
-                    break;
-                case 2:
-                    isExit = true;
-                    break;
-                default:
-                    throw new RuntimeException("Incorrect number.");
-            }
-
-        } return cipher;
-    } public Path getSrcPath () {
+    public Path getSrcPath() {
         System.out.println("Press path source file");
-        String str= scanner.nextLine();
-        Path path=Path.of(str);
+        String str = scanner.nextLine();
+        Path path = Path.of(str);
         return path;
     }
-    public Path getOutPath () {
+
+    public Path getOutPath() {
         System.out.println("Press path out file");
         String str = scanner.nextLine();
         Path path = Path.of(str);
         return path;
     }
-    public Key getKey () {
+
+    public Key getKey() {
         System.out.println("Press key");
         return new Key(Integer.parseInt(scanner.nextLine()));
     }

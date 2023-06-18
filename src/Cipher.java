@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Cipher {
+public class Cipher extends CesarFactory {
     private Path sourcePath;
     public void setSourcePath(Path sourcePath) {
         this.sourcePath = sourcePath;
@@ -42,11 +42,17 @@ public class Cipher {
     public Cipher() {
     }
     public void encode() throws IOException {
-        this.writeText(cipheringText(readTextFromFile()));
+        this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
+    }
+    public void decode() throws IOException {
+        ArrayList<String> strings = this.readTextFromFile(outPath);
+        ArrayList<String> strings1 = this.decipheringText(strings);
+        this.writeText(strings1, sourcePath);
+
     }
 
-    public ArrayList<String> readTextFromFile() throws IOException {
-            BufferedReader bufferedReader=Files.newBufferedReader(sourcePath);
+    public ArrayList<String> readTextFromFile(Path path) throws IOException {
+            BufferedReader bufferedReader=Files.newBufferedReader(path);
                 ArrayList<String> originalText = new ArrayList<>();
                 while (bufferedReader.ready()) {
                     originalText.add(bufferedReader.readLine());
@@ -72,21 +78,37 @@ public class Cipher {
         }
         return changedList;
     }
-    public void initialize (Menu menu) {
-        this.setSourcePath(menu.getSrcPath());
-        this.setOutPath(menu.getOutPath());
-        this.setKey(menu.getKey());
+    public ArrayList<String> decipheringText(ArrayList<String> strings) {
+        ArrayList<String> changedList = new ArrayList<>();
+        for (String s : strings) {
+            StringBuilder stringBuilder = new StringBuilder();
+            char[] charsOfLine = s.toCharArray();
+            for (int i = 0; i < charsOfLine.length; i++) {
+                if (SYMBOLS.contains(s.substring(i, i + 1))) {
+                    int x = SYMBOLS.indexOf(s.substring(i, i + 1));
+                    if (x-key.getValue()<0) {
+                        x = SYMBOLS.length()-x;
+                    }
+                    stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
+                }
+            } changedList.add(stringBuilder.toString());
+        } return changedList;
     }
+        public void initialize (Menu menu) {
+            this.setSourcePath(menu.getSrcPath());
+            this.setOutPath(menu.getOutPath());
+            this.setKey(menu.getKey());
+        }
 
-    public void writeText(ArrayList<String> list) {
-        if (!Files.exists(outPath)) {
+    public void writeText(ArrayList<String> list, Path path) {
+        if (!Files.exists(path)) {
             try {
-                Files.createFile(outPath);
+                Files.createFile(path);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(outPath, Charset.defaultCharset())) {
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, Charset.defaultCharset())) {
             for (String line : list) {
                 bufferedWriter.write(line);
             }

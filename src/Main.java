@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
         Menu menu = new Menu();
-        Cipher cipher = menu.start();
-        cipher.initialize(menu);
-       // cipher.writeText(cipher.cipheringText(cipher.readTextFromFile()));
-        cipher.encode();
+        CesarFactory cesarFactory = menu.start();
+        cesarFactory.initialize(menu);
+        cesarFactory.encode();
+        cesarFactory.decode();
     }
 }
 
