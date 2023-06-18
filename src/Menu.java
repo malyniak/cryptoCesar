@@ -6,6 +6,7 @@ public class Menu {
     //   Brutforce brutforce=new BrutForce();
     Path srcPath;
     Path outPath;
+    Cipher cipher;
     public static final String MENU_SELECT =
             """
                     Press 1 to encrypt/decrypt by key
@@ -16,7 +17,7 @@ public class Menu {
     boolean isExit = false;
 
     public Cipher start() {
-        Cipher cipher=null;
+
         System.out.println(MENU_SELECT);
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());

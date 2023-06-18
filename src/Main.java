@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Menu menu=new Menu();
+        Menu menu = new Menu();
         Cipher cipher = menu.start();
         cipher.initialize(menu);
-        cipher.writeText(cipher.cipheringText(cipher.readTextFromFile()));
-            }
-        }
+       // cipher.writeText(cipher.cipheringText(cipher.readTextFromFile()));
+        cipher.encode();
+    }
+}
 

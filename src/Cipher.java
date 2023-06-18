@@ -22,7 +22,7 @@ public class Cipher {
     }
 
     private Path outPath;
-    private final Key key;
+    private Key key;
 
     public Key getKey() {
         return key;
@@ -40,6 +40,9 @@ public class Cipher {
 
 
     public Cipher() {
+    }
+    public void encode() throws IOException {
+        this.writeText(cipheringText(readTextFromFile()));
     }
 
     public ArrayList<String> readTextFromFile() throws IOException {
@@ -88,7 +91,7 @@ public class Cipher {
                 bufferedWriter.write(line);
             }
         } catch (IOException e) {
-            System.out.println("Введено неіснуючий шлях");
+            System.out.println("Invalid path");
         }
 
 
