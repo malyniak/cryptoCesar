@@ -6,11 +6,13 @@ public class CesarFactory {
     public static CesarFactory createCesar(int x) {
         cesarFactory=null;
         switch (x) {
-            case 1 : cesarFactory= new Cipher();
-            break;
-            case 2 : return null;
-            default: System.out.println("");
-        } return cesarFactory;
+            case 1 -> cesarFactory = new Cipher();
+            case 2 -> {
+                return null;
+            }
+            default -> System.out.println("");
+        }
+        return cesarFactory;
     }
     public void initialize (Menu menu) {}
     public void encode () throws IOException {}

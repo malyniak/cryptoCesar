@@ -10,54 +10,41 @@ import java.util.Scanner;
 
 public class Cipher extends CesarFactory {
     private Path sourcePath;
-    public void setSourcePath(Path sourcePath) {
-        this.sourcePath = sourcePath;
-    }
-
 
     private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
-
-    public void setOutPath(Path outPath) {
-        this.outPath = outPath;
-    }
-
     private Path outPath;
     private Key key;
-
-    public Key getKey() {
-        return key;
-    }
 
     public void setKey(Key key) {
         this.key = key;
     }
 
-    public ArrayList<String> getOriginalText() {
-        return originalText;
+    public void setSourcePath(Path sourcePath) {
+        this.sourcePath = sourcePath;
     }
-
-    private ArrayList<String> originalText;
-
-
-    public Cipher() {
+    public void setOutPath(Path outPath) {
+        this.outPath = outPath;
     }
     public void encode() throws IOException {
         this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
     }
+
     public void decode() throws IOException {
         ArrayList<String> strings = this.readTextFromFile(outPath);
         ArrayList<String> strings1 = this.decipheringText(strings);
         this.writeText(strings1, sourcePath);
-
     }
 
-    public ArrayList<String> readTextFromFile(Path path) throws IOException {
-            BufferedReader bufferedReader=Files.newBufferedReader(path);
-                ArrayList<String> originalText = new ArrayList<>();
-                while (bufferedReader.ready()) {
-                    originalText.add(bufferedReader.readLine());
-                }
-        return originalText;
+    public ArrayList<String> readTextFromFile(Path path) {
+        ArrayList<String> originalText = new ArrayList<>();
+      try(BufferedReader bufferedReader = Files.newBufferedReader(path)) {
+          while (bufferedReader.ready()) {
+              originalText.add(bufferedReader.readLine());
+          }
+          return originalText;
+      } catch (IOException e) {
+          System.out.println("Invalid path");
+      } return originalText;
     }
 
     public ArrayList<String> cipheringText(ArrayList<String> strings) {
@@ -78,6 +65,7 @@ public class Cipher extends CesarFactory {
         }
         return changedList;
     }
+
     public ArrayList<String> decipheringText(ArrayList<String> strings) {
         ArrayList<String> changedList = new ArrayList<>();
         for (String s : strings) {
@@ -86,19 +74,22 @@ public class Cipher extends CesarFactory {
             for (int i = 0; i < charsOfLine.length; i++) {
                 if (SYMBOLS.contains(s.substring(i, i + 1))) {
                     int x = SYMBOLS.indexOf(s.substring(i, i + 1));
-                    if (x-key.getValue()<0) {
-                        x = SYMBOLS.length()-x;
+                    if (x - key.getValue() < 0) {
+                        x = SYMBOLS.length() - x;
                     }
                     stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
                 }
-            } changedList.add(stringBuilder.toString());
-        } return changedList;
-    }
-        public void initialize (Menu menu) {
-            this.setSourcePath(menu.getSrcPath());
-            this.setOutPath(menu.getOutPath());
-            this.setKey(menu.getKey());
+            }
+            changedList.add(stringBuilder.toString());
         }
+        return changedList;
+    }
+
+    public void initialize(Menu menu) {
+        this.setSourcePath(menu.getSrcPath());
+        this.setOutPath(menu.getOutPath());
+        this.setKey(menu.getKey());
+    }
 
     public void writeText(ArrayList<String> list, Path path) {
         if (!Files.exists(path)) {
@@ -115,8 +106,5 @@ public class Cipher extends CesarFactory {
         } catch (IOException e) {
             System.out.println("Invalid path");
         }
-
-
     }
-
 }

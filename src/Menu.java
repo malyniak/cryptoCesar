@@ -3,10 +3,7 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    //   Brutforce brutforce=new BrutForce();
-    Path srcPath;
-    Path outPath;
-    CesarFactory cesarFactory;
+    private CesarFactory cesarFactory;
     public static final String MENU_SELECT =
             """
                     Press 1 to encrypt/decrypt by key
@@ -29,17 +26,13 @@ public class Menu {
     }
 
     public Path getSrcPath() {
-        System.out.println("Press path source file");
-        String str = scanner.nextLine();
-        Path path = Path.of(str);
-        return path;
+        System.out.println("Press path of source file");
+        return Path.of(scanner.nextLine());
     }
 
     public Path getOutPath() {
-        System.out.println("Press path out file");
-        String str = scanner.nextLine();
-        Path path = Path.of(str);
-        return path;
+        System.out.println("Press path of out file");
+        return Path.of(scanner.nextLine());
     }
 
     public Key getKey() {
