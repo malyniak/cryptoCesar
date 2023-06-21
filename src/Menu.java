@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    private CesarFactory cesarFactory;
+    private Caesar caesar;
     public static final String MENU_SELECT =
             """
                     Press 1 to encrypt/decrypt by key
@@ -13,16 +14,26 @@ public class Menu {
 
     boolean isExit = false;
 
-    public CesarFactory start() {
+    public void start() throws IOException {
 
         System.out.println(MENU_SELECT);
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());
-            cesarFactory = CesarFactory.createCesar(menuNumber);
-            if (cesarFactory != null)
+            switch (menuNumber) {
+                case 1 -> {
+                    caesar=new Cipher();
+                }
+                case 2 -> {
+                }
+                default -> System.out.println("");
+            }
+            if (caesar != null)
                 isExit = true;
         }
-        return cesarFactory;
+        this.initialize(caesar);
+       caesar.encode();
+        caesar.decode();
+
     }
 
     public Path getSrcPath() {
@@ -38,6 +49,11 @@ public class Menu {
     public Key getKey() {
         System.out.println("Press key");
         return new Key(Integer.parseInt(scanner.nextLine()));
+    }
+    public void initialize (Caesar caesar) {
+        caesar.setSourcePath(this.getSrcPath());
+        caesar.setOutPath(this.getSrcPath());
+        caesar.setKey(this.getKey());
     }
 
 }

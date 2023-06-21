@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Cipher extends CesarFactory {
+public class Cipher extends Caesar {
     private Path sourcePath;
 
-    private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
+    private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path outPath;
     private Key key;
 
@@ -25,11 +25,11 @@ public class Cipher extends CesarFactory {
     public void setOutPath(Path outPath) {
         this.outPath = outPath;
     }
-    public void encode() throws IOException {
+    public void encode() {
         this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
     }
 
-    public void decode() throws IOException {
+    public void decode() {
         ArrayList<String> strings = this.readTextFromFile(outPath);
         ArrayList<String> strings1 = this.decipheringText(strings);
         this.writeText(strings1, sourcePath);
@@ -75,7 +75,7 @@ public class Cipher extends CesarFactory {
                 if (SYMBOLS.contains(s.substring(i, i + 1))) {
                     int x = SYMBOLS.indexOf(s.substring(i, i + 1));
                     if (x - key.getValue() < 0) {
-                        x = SYMBOLS.length() - x;
+                        x = SYMBOLS.length() + x ;
                     }
                     stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
                 }
