@@ -1,5 +1,7 @@
 public class Key {
+    private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
    private int value;
+
 
     public int getValue() {
         return value;
@@ -7,6 +9,8 @@ public class Key {
     public Key (int value) {
         this.value=value;
     }
-    public void encode() {
+    public String encode(String s) {
+        return null;
     }
+
 }

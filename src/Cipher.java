@@ -19,18 +19,18 @@ public class Cipher extends Caesar {
         this.key = key;
     }
 
+    @Override
+    public void run() {
+        this.encode();
+        this.decode();
+    }
+
     public void setSourcePath(Path sourcePath) {
         this.sourcePath = sourcePath;
     }
     public void setOutPath(Path outPath) {
         this.outPath = outPath;
     }
-
-    @Override
-    public void run() {
-
-    }
-
     public void encode() {
         this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
     }
@@ -84,6 +84,7 @@ public class Cipher extends Caesar {
                         x = SYMBOLS.length() + x ;
                     }
                     stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
+
                 }
             }
             changedList.add(stringBuilder.toString());
@@ -91,11 +92,7 @@ public class Cipher extends Caesar {
         return changedList;
     }
 
-    public void initialize(Menu menu) {
-        this.setSourcePath(menu.getSrcPath());
-        this.setOutPath(menu.getOutPath());
-        this.setKey(menu.getKey());
-    }
+
 
     public void writeText(ArrayList<String> list, Path path) {
         if (!Files.exists(path)) {
