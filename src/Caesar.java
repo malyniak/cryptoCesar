@@ -16,8 +16,7 @@ public abstract class Caesar {
     public void setKey(Key key) {
         this.key = key;
     }
-
-    public abstract   void initialize (Menu menu);
+    public abstract void run();
     public abstract void encode () throws IOException;
     public abstract void decode () throws IOException;
 }

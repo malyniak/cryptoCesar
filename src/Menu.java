@@ -3,14 +3,19 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Menu {
-    Scanner scanner = new Scanner(System.in);
-    private Caesar caesar;
-    public static final String MENU_SELECT =
+    private static final String MENU_SELECT =
             """
                     Press 1 to encrypt/decrypt by key
                     Press 2 to select brute force method
                     Press 0 to exit
                     """;
+    private static final int Menu_EXIT = 0;
+    private static final int Menu_ITEM1 = 1;
+    private static final int Menu_ITEM2 = 2;
+
+
+    Scanner scanner = new Scanner(System.in);
+    private Caesar caesar;
 
     boolean isExit = false;
 
@@ -20,20 +25,22 @@ public class Menu {
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
-                case 1 -> {
-                    caesar=new Cipher();
+                case Menu_ITEM1 -> {
+                    caesar = new Cipher();
+                    this.initialize();
+                    caesar.setKey(this.getKey());
+                    caesar.run();
                 }
-                case 2 -> {
+                case Menu_ITEM2 -> {
                 }
-                default -> System.out.println("");
+                case Menu_EXIT -> {
+                    isExit = true;
+                }
+                default -> System.out.println("Invalid option. Try again");
             }
             if (caesar != null)
                 isExit = true;
         }
-        this.initialize(caesar);
-       caesar.encode();
-        caesar.decode();
-
     }
 
     public Path getSrcPath() {
@@ -50,10 +57,10 @@ public class Menu {
         System.out.println("Press key");
         return new Key(Integer.parseInt(scanner.nextLine()));
     }
-    public void initialize (Caesar caesar) {
+
+    public void initialize() {
         caesar.setSourcePath(this.getSrcPath());
         caesar.setOutPath(this.getSrcPath());
-        caesar.setKey(this.getKey());
     }
 
 }
