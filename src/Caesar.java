@@ -9,5 +9,6 @@ public abstract class Caesar {
     public abstract void run();
     public abstract void encode () throws IOException;
     public abstract void decode () throws IOException;
+
 }
 

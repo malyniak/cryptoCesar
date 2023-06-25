@@ -7,4 +7,6 @@ public class Key {
     public Key (int value) {
         this.value=value;
     }
+    public void encode() {
+    }
 }
