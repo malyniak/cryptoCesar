@@ -28,7 +28,7 @@ public class Menu {
                 case Menu_ITEM1 -> {
                     caesar = new Cipher();
                     this.initialize();
-                    caesar.setKey(this.getKey());
+                    caesar.key=this.getKey();
                     caesar.run();
                 }
                 case Menu_ITEM2 -> {
@@ -59,8 +59,8 @@ public class Menu {
     }
 
     public void initialize() {
-        caesar.setSourcePath(this.getSrcPath());
-        caesar.setOutPath(this.getSrcPath());
+        caesar.sourcePath=this.getSrcPath();
+        caesar.outPath=this.getSrcPath();
     }
 
 }

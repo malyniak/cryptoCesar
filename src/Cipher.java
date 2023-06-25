@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Cipher extends Caesar {
     private Path sourcePath;
-
     private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path outPath;
     private Key key;
