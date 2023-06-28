@@ -9,9 +9,8 @@ import java.util.Scanner;
 
 
 public class Cipher extends Caesar {
+    private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path sourcePath;
-
-    private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path outPath;
     private Key key;
 
@@ -19,18 +18,14 @@ public class Cipher extends Caesar {
         this.key = key;
     }
 
-    @Override
-    public void run() {
-        this.encode();
-        this.decode();
-    }
-
     public void setSourcePath(Path sourcePath) {
         this.sourcePath = sourcePath;
     }
+
     public void setOutPath(Path outPath) {
         this.outPath = outPath;
     }
+
     public void encode() {
         this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
     }
@@ -43,14 +38,15 @@ public class Cipher extends Caesar {
 
     public ArrayList<String> readTextFromFile(Path path) {
         ArrayList<String> originalText = new ArrayList<>();
-      try(BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-          while (bufferedReader.ready()) {
-              originalText.add(bufferedReader.readLine());
-          }
-          return originalText;
-      } catch (IOException e) {
-          System.out.println("Invalid path");
-      } return originalText;
+        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
+            while (bufferedReader.ready()) {
+                originalText.add(bufferedReader.readLine());
+            }
+            return originalText;
+        } catch (IOException e) {
+            System.out.println("Invalid path");
+        }
+        return originalText;
     }
 
     public ArrayList<String> cipheringText(ArrayList<String> strings) {
@@ -65,7 +61,7 @@ public class Cipher extends Caesar {
                         x = x - SYMBOLS.length();
                     }
                     stringBuilder.append(SYMBOLS, x + key.getValue(), x + key.getValue() + 1);
-                    for(int j=0; j< key.getValue(); j++) {
+                    for (int j = 0; j < key.getValue(); j++) {
                         stringBuilder.append("~");
                     }
                 }
@@ -84,7 +80,7 @@ public class Cipher extends Caesar {
                 if (SYMBOLS.contains(s.substring(i, i + 1))) {
                     int x = SYMBOLS.indexOf(s.substring(i, i + 1));
                     if (x - key.getValue() < 0) {
-                        x = SYMBOLS.length() + x ;
+                        x = SYMBOLS.length() + x;
                     }
                     stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
 
@@ -94,7 +90,6 @@ public class Cipher extends Caesar {
         }
         return changedList;
     }
-
 
 
     public void writeText(ArrayList<String> list, Path path) {
