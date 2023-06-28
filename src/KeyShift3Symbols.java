@@ -15,7 +15,7 @@ public class KeyShift3Symbols extends Key {
                 }
                 stringBuilder.append(SYMBOLS, x + this.getValue(), x + this.getValue() + 1);
 
-                stringBuilder.append("a");
+                stringBuilder.append("~");
             }
         } return stringBuilder.toString();
     }

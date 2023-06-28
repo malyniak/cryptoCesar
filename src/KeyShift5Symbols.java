@@ -15,7 +15,7 @@ public class KeyShift5Symbols extends Key {
                 }
                 stringBuilder.append(SYMBOLS, x + this.getValue(), x + this.getValue() + 1);
 
-                stringBuilder.append(".");
+                stringBuilder.append("~~");
             }
         } return stringBuilder.toString();
     }

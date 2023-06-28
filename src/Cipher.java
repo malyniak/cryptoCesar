@@ -65,6 +65,9 @@ public class Cipher extends Caesar {
                         x = x - SYMBOLS.length();
                     }
                     stringBuilder.append(SYMBOLS, x + key.getValue(), x + key.getValue() + 1);
+                    for(int j=0; j< key.getValue(); j++) {
+                        stringBuilder.append("~");
+                    }
                 }
             }
             changedList.add(stringBuilder.toString());

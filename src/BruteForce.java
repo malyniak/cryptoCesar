@@ -12,7 +12,6 @@ public class BruteForce extends Caesar {
     private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path outPath;
 
-
     @Override
     public void run() {
 

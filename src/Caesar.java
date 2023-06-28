@@ -1,8 +1,7 @@
-import javax.xml.transform.Source;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public abstract class Caesar {
   private   Key key;
@@ -24,10 +23,10 @@ public abstract class Caesar {
         this.outPath = outPath;
     }
     public Map<String, Key> getKeys () {
-        HashMap<String, Key> mapKeys = new HashMap<>();
-        mapKeys.put(" ", key1);
-        mapKeys.put("  ", key2);
-        mapKeys.put("   ", key3);
+        Map<String, Key> mapKeys = new TreeMap<>();
+        mapKeys.put("~~~", key1);
+        mapKeys.put("~~~~~", key2);
+        mapKeys.put("~~~~~~~~", key3);
         return mapKeys;
     }
 

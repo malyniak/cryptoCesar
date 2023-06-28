@@ -5,19 +5,15 @@ import java.util.Scanner;
 public class Menu {
     private static final String MENU_SELECT =
             """
-                    Press 1 to encrypt/decrypt by key
-                    Press 2 to select brute force method
+                    Press 1 to encrypt by key
+                    Press 2 to decrypt by key
+                    Press 3 to select brute force method
                     Press 0 to exit
                     """;
-    private static final String KEY_SELECT =
-            """
-                    Press 1 to encrypt/decrypt by key 3
-                    Press 2 to encrypt/decrypt by key 5
-                    Press 3 to encrypt/decrypt by key 8
-                    """;
     private static final int Menu_EXIT = 0;
-    private static final int Menu_ITEM1 = 1;
-    private static final int Menu_ITEM2 = 2;
+    private static final int Menu_ITEM0 = 1;
+    private static final int Menu_ITEM1 = 2;
+    private static final int Menu_ITEM2 = 3;
 
 
     Scanner scanner = new Scanner(System.in);
@@ -31,14 +27,20 @@ public class Menu {
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
+                case Menu_ITEM0 -> {
+                    caesar=new Cipher();
+                    this.initialize();
+                    caesar.setKey(this.getKey());
+                    caesar.encode();
+                }
+
                 case Menu_ITEM1 -> {
                     caesar = new Cipher();
                     this.initialize();
                     caesar.setKey(this.getKey());
-                    caesar.run();
+                    caesar.decode();
                 }
                 case Menu_ITEM2 -> {
-                    this.keyInit();
                     caesar=new BruteForce();
                     this.initialize();
                     caesar.decode();
@@ -73,16 +75,7 @@ public class Menu {
         caesar.setSourcePath(this.getSrcPath());
         caesar.setOutPath(this.getOutPath());
     }
-    public void keyInit() {
-        System.out.println(KEY_SELECT);
-        int keyNumber = Integer.parseInt(scanner.nextLine());
-        switch (keyNumber) {
-            case 1 -> new KeyShift3Symbols(3);
-            case 2 -> new KeyShift5Symbols(5);
-            case 3 -> new KeyShift8Symbols(8);
-            default -> System.out.println("Invalid key");
-        }
-    }
+
 
 }
 
