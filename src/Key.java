@@ -1,5 +1,4 @@
 public class Key {
-    private final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private int value;
 
     public int getValue() {
@@ -8,5 +7,8 @@ public class Key {
 
     public Key(int value) {
         this.value = value;
+    }
+    public String addChars() {
+        return "";
     }
 }

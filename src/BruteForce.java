@@ -1,13 +1,9 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 public class BruteForce extends Caesar {
-    Key key = null;
+    Key key;
     private Path sourcePath;
 
     private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
@@ -21,38 +17,10 @@ public class BruteForce extends Caesar {
         this.outPath = outPath;
     }
 
-    public ArrayList<String> readTextFromFile(Path path) {
-        ArrayList<String> originalText = new ArrayList<>();
-        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-            while (bufferedReader.ready()) {
-                originalText.add(bufferedReader.readLine());
-            }
-            return originalText;
-        } catch (IOException e) {
-            System.out.println("Invalid path");
-        }
-        return originalText;
-    }
-
-    public void writeText(String string, Path path) {
-        if (!Files.exists(path)) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, Charset.defaultCharset())) {
-                bufferedWriter.write(string);
-        } catch (IOException e) {
-            System.out.println("Invalid path");
-        }
-    }
-
     @Override
     public void decode() throws IOException {
-        String textWithOutUselessSymb = findKey();
-        String originalText = decipheringText(textWithOutUselessSymb);
+       key = findKey();
+        String originalText = decipheringText(this.readTextFromFile(outPath).toString());
         this.writeText(originalText, sourcePath);
     }
 
@@ -67,33 +35,22 @@ public class BruteForce extends Caesar {
                     x = SYMBOLS.length() + x;
                 }
                 stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
-            }
+            } if(str.substring(i, i+1).equals("\n"))
+                stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
 
-    public String findKey() {
-        String[] arr = null;
+    public Key findKey() {
         Map<String, Key> keys = this.getKeys();
-        ArrayList<String> strings = this.readTextFromFile(outPath);
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String s : strings) {
-            stringBuilder.append(s)
-                    .append("\n");
-        }
-        String text = stringBuilder.toString();
-        Set<String> spaces = keys.keySet();
-        StringBuilder result = new StringBuilder();
-        for (String s : spaces) {
-            if (text.contains(s)) {
+       String listStringsFromSrcFile = this.readTextFromFile(outPath);
+        Set<String> keySet = keys.keySet();
+        for (String s : keySet) {
+            if (listStringsFromSrcFile.contains(s)) {
                 key = keys.get(s);
-                arr = text.split(s);
             }
         }
-        for (int i = 0; i < arr.length; i++) {
-            result.append(arr[i]);
-        }
-        return result.toString();
+        return key;
     }
 
 
