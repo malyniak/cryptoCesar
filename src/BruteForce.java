@@ -1,44 +1,18 @@
-import java.nio.file.Path;
 import java.util.*;
-
-public class BruteForce extends Caesar {
-    private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
-    private Key key;
-    private Path sourcePath;
-    private Path outPath;
-
-    public void setSourcePath(Path sourcePath) {
-        this.sourcePath = sourcePath;
+public class BruteForce extends Decipher {
+    public Map<String, Key> getKeys() {
+        Map<String, Key> mapKeys = new TreeMap<>();
+        mapKeys.put("~~~", new KeyShift3(3));
+        mapKeys.put("~~~~~", new KeyShift5(5));
+        mapKeys.put("~~~~~~~~", new KeyShift8(8));
+        return mapKeys;
     }
-
-    public void setOutPath(Path outPath) {
-        this.outPath = outPath;
-    }
-
     @Override
     public void decode() {
        key = findKey();
         String originalText = decipheringText(this.readTextFromFile(outPath));
         this.writeText(originalText, sourcePath);
     }
-
-    public String decipheringText(String str) {
-
-        StringBuilder stringBuilder = new StringBuilder();
-        char[] charsOfLine = str.toCharArray();
-        for (int i = 0; i < charsOfLine.length; i++) {
-            if (SYMBOLS.contains(str.substring(i, i + 1))) {
-                int x = SYMBOLS.indexOf(str.substring(i, i + 1));
-                if (x - key.getValue() < 0) {
-                    x = SYMBOLS.length() + x;
-                }
-                stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
-            } if(str.charAt(i) == '\n')
-                stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
     public Key findKey() {
         Map<String, Key> keys = this.getKeys();
        String text = this.readTextFromFile(outPath);
@@ -48,6 +22,11 @@ public class BruteForce extends Caesar {
                 key = keys.get(s);
         }
         return key;
+    }
+    @Override
+    public void initialize() {
+        this.setSourcePath(menu.getSrcPath());
+        this.setOutPath(menu.getOutPath());
     }
 
 

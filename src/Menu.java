@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
-
 public class Menu {
     private static final String MENU_SELECT =
             """
@@ -25,7 +24,8 @@ public class Menu {
     private static final int KEY5=5;
     private static final int KEY8=8;
     Scanner scanner = new Scanner(System.in);
-    private Caesar caesar;
+    private Decipher decipher;
+    private Cipher cipher;
     boolean isExit = false;
 
     public void start() throws IOException {
@@ -35,27 +35,27 @@ public class Menu {
             int menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
                 case MENU_ITEM0 -> {
-                    caesar = new CipherDecipherByKey();
-                    this.initialize();
-                    caesar.encode();
+                    cipher = new Cipher();
+                    cipher.initialize();
+                    cipher.encode();
                 }
 
                 case MENU_ITEM1 -> {
-                    caesar = new CipherDecipherByKey();
-                    this.initialize();
-                    caesar.decode();
+                    decipher = new Decipher();
+                    decipher.initialize();
+                    decipher.decode();
                 }
                 case MENU_ITEM2 -> {
-                    caesar = new BruteForce();
-                    this.initialize();
-                    caesar.decode();
+                    decipher = new BruteForce();
+                    decipher.initialize();
+                    decipher.decode();
 
                 }
                 case MENU_EXIT -> {
                     isExit = true;
                 }
                 default -> System.out.println("Invalid option. Try again");
-            } if(caesar!=null)
+            } if(decipher!=null || cipher!=null)
                 isExit=true;
         }
     }
@@ -84,15 +84,5 @@ public class Menu {
             }
         } throw new RuntimeException("Invalid Key");
     }
-
-    public void initialize() {
-        caesar.setSourcePath(this.getSrcPath());
-        caesar.setOutPath(this.getOutPath());
-        if(caesar instanceof CipherDecipherByKey) {
-            caesar.setKey(this.getKey());
-        }
-    }
-
-
 }
 
