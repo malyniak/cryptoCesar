@@ -1,10 +1,9 @@
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
 public class BruteForce extends Caesar {
     private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
-    private   Key key;
+    private Key key;
     private Path sourcePath;
     private Path outPath;
 

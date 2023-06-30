@@ -23,7 +23,6 @@ public abstract class Caesar {
     public void setOutPath(Path outPath) {
         this.outPath = outPath;
     }
-
     public Map<String, Key> getKeys() {
         Map<String, Key> mapKeys = new TreeMap<>();
         mapKeys.put("~~~", new KeyShift3(3));
@@ -33,9 +32,6 @@ public abstract class Caesar {
     }
 
     public abstract void decode() throws IOException;
-
-    public void encode() {
-    }
     public String readTextFromFile(Path path) {
       StringBuilder originalText  = new StringBuilder();
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
@@ -61,6 +57,8 @@ public abstract class Caesar {
         } catch (IOException e) {
             System.out.println("Invalid path");
         }
+    }
+    public void encode() {
     }
 }
 

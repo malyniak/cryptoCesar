@@ -1,7 +1,7 @@
 
 import java.nio.file.Path;
 
-public class Cipher extends Caesar {
+public class CipherDecipherByKey extends Caesar {
 
     private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Path sourcePath;
@@ -16,10 +16,9 @@ public class Cipher extends Caesar {
         this.sourcePath = sourcePath;
     }
 
-    public void setOutPath(Path outPath) {
+   public void setOutPath(Path outPath) {
         this.outPath = outPath;
     }
-
     public void encode() {
         this.writeText(cipheringText(readTextFromFile(sourcePath)), outPath);
     }

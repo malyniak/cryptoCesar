@@ -35,13 +35,13 @@ public class Menu {
             int menuNumber = Integer.parseInt(scanner.nextLine());
             switch (menuNumber) {
                 case MENU_ITEM0 -> {
-                    caesar = new Cipher();
+                    caesar = new CipherDecipherByKey();
                     this.initialize();
                     caesar.encode();
                 }
 
                 case MENU_ITEM1 -> {
-                    caesar = new Cipher();
+                    caesar = new CipherDecipherByKey();
                     this.initialize();
                     caesar.decode();
                 }
@@ -88,7 +88,7 @@ public class Menu {
     public void initialize() {
         caesar.setSourcePath(this.getSrcPath());
         caesar.setOutPath(this.getOutPath());
-        if(caesar instanceof Cipher) {
+        if(caesar instanceof CipherDecipherByKey) {
             caesar.setKey(this.getKey());
         }
     }
