@@ -9,6 +9,10 @@ public class Key {
         this.value = value;
     }
     public String addChars() {
-        return "";
+        int count=0;
+        StringBuilder sb=new StringBuilder();
+        while (count++<value)
+            sb.append("~");
+        return sb.toString();
     }
 }

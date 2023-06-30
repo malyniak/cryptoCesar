@@ -1,5 +1,5 @@
-public class KeyMoveOn8 extends Key{
-    public KeyMoveOn8(int value) {
+public class KeyShift8 extends Key{
+    public KeyShift8(int value) {
         super(value);
     }
     public String addChars() {

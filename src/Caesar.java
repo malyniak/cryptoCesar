@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public abstract class Caesar {
-    private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
     private Key key;
     private Path sourcePath;
     private Path outPath;
@@ -27,9 +26,9 @@ public abstract class Caesar {
 
     public Map<String, Key> getKeys() {
         Map<String, Key> mapKeys = new TreeMap<>();
-        mapKeys.put("~~~", new KeyMoveOn3(3));
-        mapKeys.put("~~~~~", new KeyMoveOn5(5));
-        mapKeys.put("~~~~~~~~", new KeyMoveOn8(8));
+        mapKeys.put("~~~", new KeyShift3(3));
+        mapKeys.put("~~~~~", new KeyShift5(5));
+        mapKeys.put("~~~~~~~~", new KeyShift8(8));
         return mapKeys;
     }
 

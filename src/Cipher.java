@@ -25,44 +25,43 @@ public class Cipher extends Caesar {
     }
 
     public void decode() {
-        String strings = this.readTextFromFile(outPath);
-       String strings1 = this.decipheringText(strings.toString());
-        this.writeText(strings1, sourcePath);
+        String ciphText = this.readTextFromFile(outPath);
+        String resultText = this.decipheringText(ciphText);
+        this.writeText(resultText, sourcePath);
     }
-    public String cipheringText(String strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-            char[] charsOfLine = strings.toCharArray();
-            for (int i = 0; i < charsOfLine.length; i++) {
-                if (SYMBOLS.contains(strings.substring(i, i + 1))) {
-                    int x = SYMBOLS.indexOf(strings.substring(i, i + 1));
+    public String cipheringText(String text) {
+        StringBuilder sb = new StringBuilder();
+            char[] textChars = text.toCharArray();
+            for (int i = 0; i < textChars.length; i++) {
+                if (SYMBOLS.contains(text.substring(i, i + 1))) {
+                    int x = SYMBOLS.indexOf(text.substring(i, i + 1));
                     if (x + key.getValue() >= SYMBOLS.length()) {
                         x = x - SYMBOLS.length();
                     }
-                    stringBuilder.append(SYMBOLS, x + key.getValue(), x + key.getValue() + 1);
-                        stringBuilder.append(key.addChars());
+                    sb.append(SYMBOLS, x + key.getValue(), x + key.getValue() + 1);
+                        sb.append(key.addChars());
 
-                } if(strings.substring(i, i+1).equals("\n"))
-                    stringBuilder.append("\n");
+                } if(text.charAt(i) == '\n')
+                    sb.append("\n");
             }
-        return stringBuilder.toString();
+        return sb.toString();
     }
     public String decipheringText(String str) {
 
-        StringBuilder stringBuilder = new StringBuilder();
-        char[] charsOfLine = str.toCharArray();
-        for (int i = 0; i < charsOfLine.length; i++) {
+        StringBuilder sb = new StringBuilder();
+        char[] charsOfText = str.toCharArray();
+        for (int i = 0; i < charsOfText.length; i++) {
             if (SYMBOLS.contains(str.substring(i, i + 1))) {
                 int x = SYMBOLS.indexOf(str.substring(i, i + 1));
                 if (x - key.getValue() < 0) {
                     x = SYMBOLS.length() + x;
                 }
-                stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
-            } if(str.substring(i, i+1).equals(" "))
-                stringBuilder.append(" ");
-            if(str.substring(i, i+1).equals("\n"))
-                stringBuilder.append("\n");
-        } stringBuilder.append(key.addChars());
-        return stringBuilder.toString();
+                sb.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
+            }
+            if(str.charAt(i) == '\n')
+                sb.append("\n");
+        }
+        return sb.toString();
     }
 
 }

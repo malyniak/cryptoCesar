@@ -1,5 +1,5 @@
-public class KeyMoveOn5 extends Key{
-    public KeyMoveOn5(int value) {
+public class KeyShift5 extends Key{
+    public KeyShift5(int value) {
         super(value);
     }
 

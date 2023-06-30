@@ -3,10 +3,9 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class BruteForce extends Caesar {
-    Key key;
-    private Path sourcePath;
-
     private static final String SYMBOLS = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,\":-? ";
+    private   Key key;
+    private Path sourcePath;
     private Path outPath;
 
     public void setSourcePath(Path sourcePath) {
@@ -18,9 +17,9 @@ public class BruteForce extends Caesar {
     }
 
     @Override
-    public void decode() throws IOException {
+    public void decode() {
        key = findKey();
-        String originalText = decipheringText(this.readTextFromFile(outPath).toString());
+        String originalText = decipheringText(this.readTextFromFile(outPath));
         this.writeText(originalText, sourcePath);
     }
 
@@ -35,7 +34,7 @@ public class BruteForce extends Caesar {
                     x = SYMBOLS.length() + x;
                 }
                 stringBuilder.append(SYMBOLS, x - key.getValue(), x - key.getValue() + 1);
-            } if(str.substring(i, i+1).equals("\n"))
+            } if(str.charAt(i) == '\n')
                 stringBuilder.append("\n");
         }
         return stringBuilder.toString();
@@ -43,12 +42,11 @@ public class BruteForce extends Caesar {
 
     public Key findKey() {
         Map<String, Key> keys = this.getKeys();
-       String listStringsFromSrcFile = this.readTextFromFile(outPath);
+       String text = this.readTextFromFile(outPath);
         Set<String> keySet = keys.keySet();
         for (String s : keySet) {
-            if (listStringsFromSrcFile.contains(s)) {
+            if (text.contains(s))
                 key = keys.get(s);
-            }
         }
         return key;
     }
