@@ -19,7 +19,6 @@ public class Menu {
     private static final int MENU_ITEM0 = 1;
     private static final int MENU_ITEM1 = 2;
     private static final int MENU_ITEM2 = 3;
-
     private static final int KEY3=3;
     private static final int KEY5=5;
     private static final int KEY8=8;
