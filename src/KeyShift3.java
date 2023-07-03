@@ -1,9 +1,9 @@
 public class KeyShift3 extends Key {
-    public KeyShift3(int value) {
-        super(value);
+    @Override
+    public int getValue() {
+        return 3;
     }
     public String addChars() {
         return "~~~";
     }
-
 }

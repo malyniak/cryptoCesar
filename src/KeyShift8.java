@@ -1,6 +1,7 @@
-public class KeyShift8 extends Key{
-    public KeyShift8(int value) {
-        super(value);
+public class KeyShift8 extends Key {
+    @Override
+    public int getValue() {
+        return 8;
     }
     public String addChars() {
         return "~~~~~~~~";

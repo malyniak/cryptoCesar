@@ -2,9 +2,9 @@ import java.util.*;
 public class BruteForce extends Decipher {
     public Map<String, Key> getKeys() {
         Map<String, Key> mapKeys = new TreeMap<>();
-        mapKeys.put("~~~", new KeyShift3(3));
-        mapKeys.put("~~~~~", new KeyShift5(5));
-        mapKeys.put("~~~~~~~~", new KeyShift8(8));
+        mapKeys.put("~~~", new KeyShift3());
+        mapKeys.put("~~~~~", new KeyShift5());
+        mapKeys.put("~~~~~~~~", new KeyShift8());
         return mapKeys;
     }
     @Override
@@ -25,9 +25,7 @@ public class BruteForce extends Decipher {
     }
     @Override
     public void initialize() {
-        this.setSourcePath(menu.getSrcPath());
-        this.setOutPath(menu.getOutPath());
+        this.setSourcePath(new Menu().getSrcPath());
+        this.setOutPath(new Menu().getOutPath());
     }
-
-
 }

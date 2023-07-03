@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 public class Menu {
@@ -11,9 +10,9 @@ public class Menu {
                     """;
     private static final String KEY_SELECT =
             """
-                    Press 3 to select Key3
-                    Press 5 to select Key5
-                    Press 8 to select Key8
+                    Press 3 to move symbols 3 to the right
+                    Press 5 to move symbols 5 to the right
+                    Press 8 to move symbols 8 to the right
                     """;
     private static final int MENU_EXIT = 0;
     private static final int MENU_ITEM0 = 1;
@@ -27,8 +26,7 @@ public class Menu {
     private Cipher cipher;
     boolean isExit = false;
 
-    public void start() throws IOException {
-
+    public void start() {
         System.out.println(MENU_SELECT);
         while (!isExit) {
             int menuNumber = Integer.parseInt(scanner.nextLine());
@@ -38,7 +36,6 @@ public class Menu {
                     cipher.initialize();
                     cipher.encode();
                 }
-
                 case MENU_ITEM1 -> {
                     decipher = new Decipher();
                     decipher.initialize();
@@ -48,11 +45,9 @@ public class Menu {
                     decipher = new BruteForce();
                     decipher.initialize();
                     decipher.decode();
-
                 }
-                case MENU_EXIT -> {
+                case MENU_EXIT ->
                     isExit = true;
-                }
                 default -> System.out.println("Invalid option. Try again");
             } if(decipher!=null || cipher!=null)
                 isExit=true;
@@ -71,15 +66,14 @@ public class Menu {
         int k=Integer.parseInt(scanner.nextLine());
         switch (k) {
             case KEY3 -> {
-
-            return new KeyShift3(3);
+                return new KeyShift3();
             }
             case KEY5 ->
             {
-                return new KeyShift5(5);
+                return new KeyShift5();
             }
             case KEY8 -> {
-                return new KeyShift8(8);
+                return new KeyShift8();
             }
         } throw new RuntimeException("Invalid Key");
     }

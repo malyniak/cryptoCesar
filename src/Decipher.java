@@ -6,7 +6,6 @@ public class Decipher extends Caesar {
         this.writeText(resultText, sourcePath);
     }
     public String decipheringText(String str) {
-
         StringBuilder sb = new StringBuilder();
         char[] charsOfText = str.toCharArray();
         for (int i = 0; i < charsOfText.length; i++) {

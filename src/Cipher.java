@@ -9,12 +9,10 @@ public class Cipher extends Caesar {
         for (int i = 0; i < textChars.length; i++) {
             if (SYMBOLS.contains(text.substring(i, i + 1))) {
                 int x = SYMBOLS.indexOf(text.substring(i, i + 1));
-                if (x + key.getValue() >= SYMBOLS.length()) {
+                if (x + key.getValue() >= SYMBOLS.length())
                     x = x - SYMBOLS.length();
-                }
                 sb.append(SYMBOLS, x + key.getValue(), x + key.getValue() + 1);
                 sb.append(key.addChars());
-
             } if(text.charAt(i) == '\n')
                 sb.append("\n");
         }
