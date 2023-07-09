@@ -9,13 +9,14 @@ public class BruteForce extends Decipher {
     }
     @Override
     public void decode() {
-       key = findKey();
-        String originalText = decipheringText(this.readTextFromFile(outPath));
-        this.writeText(originalText, sourcePath);
+        this.setKey(findKey());
+        String originalText = decipheringText(this.readTextFromFile(this.getOutPath()));
+        this.writeText(originalText, this.getOutPath());
     }
     public Key findKey() {
+        Key key=null;
         Map<String, Key> keys = this.getKeys();
-       String text = this.readTextFromFile(outPath);
+       String text = this.readTextFromFile(this.getOutPath());
         Set<String> keySet = keys.keySet();
         for (String s : keySet) {
             if (text.contains(s))

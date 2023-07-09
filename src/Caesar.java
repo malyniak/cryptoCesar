@@ -4,12 +4,20 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-public abstract class Caesar {
-    Key key;
-    Path sourcePath;
-    Path outPath;
-    Menu menu;
 
+public abstract class Caesar {
+    private Key key;
+    private Path sourcePath;
+    private Path outPath;
+    public Key getKey() {
+        return key;
+    }
+    public Path getSourcePath() {
+        return sourcePath;
+    }
+    public Path getOutPath() {
+        return outPath;
+    }
     public void setKey(Key key) {
         this.key = key;
     }
@@ -23,7 +31,7 @@ public abstract class Caesar {
     }
 
     public void initialize() {
-        menu = new Menu();
+        Menu menu = new Menu();
         this.setSourcePath(menu.getSrcPath());
         this.setOutPath(menu.getOutPath());
         this.setKey(menu.getKey());
