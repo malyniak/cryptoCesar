@@ -10,9 +10,9 @@ public class Menu {
                     """;
     private static final String KEY_SELECT =
             """
-                    Press 3 to move symbols 3 to the right
-                    Press 5 to move symbols 5 to the right
-                    Press 8 to move symbols 8 to the right
+                    Press 3 to move symbols on 3
+                    Press 5 to move symbols on 5
+                    Press 8 to move symbols on 8
                     """;
     private static final int MENU_EXIT = 0;
     private static final int MENU_ITEM0 = 1;
