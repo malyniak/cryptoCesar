@@ -18,9 +18,9 @@ public class Menu {
     private static final int MENU_ITEM0 = 1;
     private static final int MENU_ITEM1 = 2;
     private static final int MENU_ITEM2 = 3;
-    private static final int KEY3=3;
-    private static final int KEY5=5;
-    private static final int KEY8=8;
+    private static final int Key_SHIFT3=3;
+    private static final int Key_SHIFT5=5;
+    private static final int Key_SHIFT8=8;
     Scanner scanner = new Scanner(System.in);
     private Decipher decipher;
     private Cipher cipher;
@@ -65,14 +65,14 @@ public class Menu {
         System.out.println(KEY_SELECT);
         int k=Integer.parseInt(scanner.nextLine());
         switch (k) {
-            case KEY3 -> {
+            case Key_SHIFT3 -> {
                 return new KeyShift3();
             }
-            case KEY5 ->
+            case Key_SHIFT5 ->
             {
                 return new KeyShift5();
             }
-            case KEY8 -> {
+            case Key_SHIFT8 -> {
                 return new KeyShift8();
             }
         } throw new RuntimeException("Invalid Key");
